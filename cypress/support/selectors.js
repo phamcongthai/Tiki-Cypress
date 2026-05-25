@@ -2,7 +2,7 @@
  * Tập trung các selector cho website Tiki.
  * Nếu Tiki thay đổi DOM, chỉ cần cập nhật file này.
  *
- * Ưu tiên dùng selector ổn định (data-view-id, role, placeholder text).
+ * Ưu tiên dùng selector ổn định (data-view-id, role, non-text fallbacks).
  * Mỗi selector có thể là chuỗi CSS hoặc mảng fallback — file commands.js
  * sẽ thử lần lượt cho tới khi tìm thấy phần tử.
  *
@@ -16,12 +16,14 @@ module.exports = {
   header: {
     searchInput: [
       'input[data-view-id="main_search_form_input"]',
-      'input[placeholder*="ìm"]',
       'input[name="q"]',
+      'header input[placeholder][type="text"]',
     ],
     searchButton: [
       '[data-view-id="main_search_form_button"]',
-      'button:contains("Tìm kiếm")',
+      'button[data-view-id*="main_search_form"]',
+      'button[data-view-id*="search"]',
+      'form[action*="/search"] button[type="submit"]',
     ],
     accountLink: [
       '[data-view-id="header_header_account_link"]',
@@ -111,7 +113,7 @@ module.exports = {
       'button:contains("Mua ngay")',
     ],
     subtotal: ['[class*="subtotal"]', '[data-view-id*="subtotal"]'],
-    breadcrumb: ['nav[aria-label*="readcrumb"]', '[class*="breadcrumb"]'],
+    breadcrumb: ['[data-view-id="breadcrumb_item"]', '.breadcrumb', '.breadcrumb-item'],
     outOfStockBadge: [':contains("Hết hàng")'],
   },
 

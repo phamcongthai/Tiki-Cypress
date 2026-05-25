@@ -1,9 +1,38 @@
+# Dependencies
 node_modules/
-cypress/videos/
-cypress/screenshots/
-cypress/downloads/
-cypress.env.json
-.DS_Store
+
+# Cypress generated artifacts
+cypress/screenshots/*
+!cypress/screenshots/.gitkeep
+
+cypress/videos/*
+!cypress/videos/.gitkeep
+
+cypress/downloads/*
+!cypress/downloads/.gitkeep
+
+# Test reports / results
+reports/*
+!reports/.gitkeep
+
+test-results/*
+!test-results/.gitkeep
+
+mochawesome-report/
+cypress/results/
+
+# Coverage / logs
+coverage/
+.nyc_output/
+logs/
 *.log
+
+# Environment
+.env
+.env.*
+cypress.env.json
+
+# OS / editor
+.DS_Store
 .idea/
 .vscode/

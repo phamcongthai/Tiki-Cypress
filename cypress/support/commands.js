@@ -52,6 +52,9 @@ Cypress.Commands.add('selByList', (list, opts = {}) => {
  */
 Cypress.Commands.add('dismissAds', () => {
   const adCloseSelectors = [
+    '[data-view-id="popup-manager.close"]',
+    'img[alt="close-icon"][width="32"][height="32"]',
+    'img[alt="close-icon"]',
     // X button trong dialog quảng cáo
     'div[role="dialog"] button[aria-label*="close" i]',
     'div[role="dialog"] button[aria-label*="đóng" i]',
@@ -106,6 +109,7 @@ Cypress.Commands.add('dismissAds', () => {
     style.innerHTML = `
       [class*="PopupStyle"]:not([class*="Login"]),
       [class*="ModalAd"],
+      [data-view-id="popup-manager.close"],
       [class*="floating-banner"],
       [class*="app-download-banner"],
       [class*="sticky-banner"],
@@ -130,15 +134,39 @@ Cypress.Commands.add('visitHome', () => {
 
 /** Thực hiện tìm kiếm với 1 keyword + tùy chọn submit kiểu click hay Enter. */
 Cypress.Commands.add('doSearch', (keyword, { submit = 'click' } = {}) => {
-  cy.selByList(SELECTORS.header.searchInput).as('searchInput');
-  cy.get('@searchInput').clear();
-  if (keyword && keyword.length > 0) {
-    cy.get('@searchInput').type(keyword, { delay: 30 });
+  const keywordText = String(keyword ?? '');
+  cy.dismissAds();
+  cy.get('body', { log: false }).then(($body) => {
+    const inputSelectors = [
+      'input[data-view-id="main_search_form_input"]',
+      'input[name="q"]',
+      'header input[placeholder][type="text"]',
+    ];
+    for (const sel of inputSelectors) {
+      const $input = Cypress.$($body)
+        .find(sel)
+        .filter(':visible')
+        .filter((_, el) => !el.disabled && !el.readOnly)
+        .first();
+      if ($input.length) return cy.wrap($input).as('searchInput');
+    }
+    throw new Error('Không tìm thấy search input visible.');
+  });
+  cy.get('@searchInput').click().type('{selectall}{backspace}');
+  cy.get('@searchInput').should('have.value', '');
+  if (keywordText.length > 0) {
+    cy.get('@searchInput').type(keywordText, { delay: 30 });
   }
+  cy.get('@searchInput').should('have.value', keywordText);
+  cy.dismissAds();
   if (submit === 'enter') {
     cy.get('@searchInput').type('{enter}');
   } else {
-    cy.selByList(SELECTORS.header.searchButton).click({ force: true });
+    cy.get('button[data-view-id="main_search_form_button"]')
+      .filter(':visible')
+      .first()
+      .should('be.visible')
+      .click();
   }
 });
 
