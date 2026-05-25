@@ -1,0 +1,16 @@
+{
+  "name": "tiki-cypress",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Automation testing cho Tiki bằng Cypress dựa trên Test_Case_Tiki_Cypress.xlsx",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:search": "cypress run --spec cypress/e2e/search.cy.js",
+    "test:cart": "cypress run --spec cypress/e2e/cart.cy.js",
+    "test:login": "cypress run --spec cypress/e2e/login.cy.js"
+  },
+  "devDependencies": {
+    "cypress": "^14.0.0"
+  }
+}

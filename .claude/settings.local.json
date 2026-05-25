@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import openpyxl; wb = openpyxl.load_workbook\\('Test_Case_Tiki_Cypress.xlsx'\\); print\\('Sheets:', wb.sheetnames\\)\")",
+      "Bash(python -c ' *)"
+    ]
+  }
+}

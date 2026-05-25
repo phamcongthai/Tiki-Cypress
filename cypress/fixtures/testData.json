@@ -1,0 +1,38 @@
+{
+  "baseUrl": "https://tiki.vn",
+  "browser": "Chrome",
+  "framework": "Cypress",
+
+  "search": {
+    "validKeyword": "sách",
+    "vietnameseWithAccent": "sách thiếu nhi",
+    "vietnameseNoAccent": "sach thieu nhi",
+    "withWhitespace": "  sách  ",
+    "mixedCase": "SÁch ThiẾu Nhi",
+    "numeric": "2025",
+    "specialChars": "@#$%^&*",
+    "noResult": "zzzzzzzzzzz_tiki_test_no_result",
+    "empty": "",
+    "enterKey": "tai nghe",
+    "fromDetailPage": "bàn phím",
+    "first": "sách",
+    "second": "laptop",
+    "displayBack": "đồ chơi trẻ em",
+    "richResult": "sách",
+    "categoryName": "sách"
+  },
+
+  "cart": {
+    "quantityDefault": 1,
+    "quantityValid": 2,
+    "quantityInvalid": ["0", "-1", "abc"]
+  },
+
+  "login": {
+    "invalidPhone": "12345",
+    "invalidEmail": "invalid-email",
+    "invalidWithLetters": "abcdefghij",
+    "invalidWithSpecial": "@#$%^&*",
+    "invalidSecret": "wrong-password-123"
+  }
+}
