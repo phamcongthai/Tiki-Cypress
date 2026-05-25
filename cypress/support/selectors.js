@@ -5,12 +5,18 @@
  * Ưu tiên dùng selector ổn định (data-view-id, role, placeholder text).
  * Mỗi selector có thể là chuỗi CSS hoặc mảng fallback — file commands.js
  * sẽ thử lần lượt cho tới khi tìm thấy phần tử.
+ *
+ * QUAN TRỌNG — KHÔNG dùng cờ case-insensitive [attr*="x" i]:
+ * engine jQuery/Sizzle (cy.get, Cypress.$.find) KHÔNG hỗ trợ cờ "i" và sẽ
+ * throw "unrecognized expression". Để khớp không phân biệt hoa/thường, ta bỏ
+ * ký tự đầu (chữ dễ đổi hoa/thường) và khớp phần còn lại, vd "oogle" khớp cả
+ * "Google" lẫn "google".
  */
 module.exports = {
   header: {
     searchInput: [
       'input[data-view-id="main_search_form_input"]',
-      'input[placeholder*="tìm" i]',
+      'input[placeholder*="ìm"]',
       'input[name="q"]',
     ],
     searchButton: [
@@ -63,7 +69,7 @@ module.exports = {
       ':contains("Rất tiếc")',
       ':contains("không tìm thấy")',
     ],
-    breadcrumb: ['nav[aria-label*="breadcrumb" i]', '.breadcrumb'],
+    breadcrumb: ['nav[aria-label*="readcrumb"]', '.breadcrumb'],
   },
 
   product: {
@@ -105,7 +111,7 @@ module.exports = {
       'button:contains("Mua ngay")',
     ],
     subtotal: ['[class*="subtotal"]', '[data-view-id*="subtotal"]'],
-    breadcrumb: ['nav[aria-label*="breadcrumb" i]', '[class*="breadcrumb"]'],
+    breadcrumb: ['nav[aria-label*="readcrumb"]', '[class*="breadcrumb"]'],
     outOfStockBadge: [':contains("Hết hàng")'],
   },
 
@@ -136,7 +142,7 @@ module.exports = {
     itemDeleteButton: [
       'button[class*="delete"]',
       'svg[data-view-id*="trash"]',
-      'button[aria-label*="Xóa" i]',
+      'button[aria-label*="óa"]',
     ],
     itemSubtotal: ['[class*="item-total"]', '[class*="ProductTotalPrice"]'],
     itemCheckbox: ['input[type="checkbox"]'],
@@ -164,9 +170,9 @@ module.exports = {
     emptyState: [
       ':contains("Giỏ hàng trống")',
       ':contains("Không có sản phẩm")',
-      'img[alt*="empty" i]',
+      'img[alt*="mpty"]',
     ],
-    freeshipBlock: [':contains("freeship" i)', ':contains("FREESHIP")'],
+    freeshipBlock: [':contains("reeship")', ':contains("FREESHIP")'],
     promotionBlock: [':contains("Khuyến Mãi")', ':contains("Khuyến mãi")'],
   },
 
@@ -180,7 +186,7 @@ module.exports = {
     phoneInput: [
       'input[name="tel"]',
       'input[type="tel"]',
-      'input[placeholder*="điện thoại" i]',
+      'input[placeholder*="iện thoại"]',
     ],
     termsCheckbox: ['input[type="checkbox"]'],
     continueButton: [
@@ -188,7 +194,7 @@ module.exports = {
       'button:contains("Tiếp tục")',
     ],
     closeButton: [
-      'button[aria-label*="Close" i]',
+      'button[aria-label*="lose"]',
       'button[class*="close"]',
       'svg[data-view-id*="close"]',
     ],
@@ -199,7 +205,7 @@ module.exports = {
     emailInput: [
       'input[type="email"]',
       'input[name="email"]',
-      'input[placeholder*="email" i]',
+      'input[placeholder*="mail"]',
     ],
     passwordInput: ['input[type="password"]', 'input[name="password"]'],
     emailSubmitButton: [
@@ -216,13 +222,13 @@ module.exports = {
     ],
     googleButton: [
       '[data-view-id*="google"]',
-      'button[aria-label*="Google" i]',
-      'img[alt*="Google" i]',
+      'button[aria-label*="oogle"]',
+      'img[alt*="oogle"]',
     ],
     facebookButton: [
       '[data-view-id*="facebook"]',
-      'button[aria-label*="Facebook" i]',
-      'img[alt*="Facebook" i]',
+      'button[aria-label*="acebook"]',
+      'img[alt*="acebook"]',
     ],
     errorMessage: [
       '[class*="error"]',
@@ -234,6 +240,6 @@ module.exports = {
 
   loggedInHeader: {
     accountText: [':contains("Tài khoản") + *', '[data-view-id*="account_name"]'],
-    avatar: ['img[alt*="avatar" i]', '[data-view-id*="account_avatar"]'],
+    avatar: ['img[alt*="vatar"]', '[data-view-id*="account_avatar"]'],
   },
 };
