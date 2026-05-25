@@ -2,7 +2,13 @@ const SELECTORS = require('./selectors');
 
 /**
  * cy.selByList(list) — thử nhiều selector lần lượt, trả về phần tử đầu tiên tìm thấy.
- * Nhận chuỗi hoặc mảng. Có hỗ trợ `:contains()` jQuery.
+ * Nhận chuỗi hoặc mảng.
+ *
+ * Lưu ý 2 engine selector có giới hạn BÙ TRỪ nhau:
+ *  - jQuery/Sizzle (cy.get, Cypress.$.find): hỗ trợ :contains()/:has()
+ *    nhưng THROW với cờ case-insensitive [attr*="x" i].
+ *  - querySelectorAll (native): hỗ trợ cờ "i" nhưng THROW với :contains().
+ * Vì vậy selector có cờ "i" được xử lý bằng native + cy.wrap; còn lại dùng cy.get.
  */
 Cypress.Commands.add('selByList', (list, opts = {}) => {
   const arr = Array.isArray(list) ? list : [list];
@@ -11,11 +17,28 @@ Cypress.Commands.add('selByList', (list, opts = {}) => {
       throw new Error(`Không tìm thấy element với selectors: ${arr.join(' | ')}`);
     }
     const sel = arr[idx];
+    // Selector dùng cờ case-insensitive [attr*="x" i] → cy.get (Sizzle) sẽ throw.
+    const hasCaseInsensitiveFlag = /\s+i\s*\]/.test(sel);
     return cy.get('body', { log: false }).then(($body) => {
-      const $el = Cypress.$($body).find(sel);
-      if ($el.length > 0) {
-        return cy.get(sel, opts).first();
+      const root = $body[0];
+      if (hasCaseInsensitiveFlag) {
+        let node = null;
+        try {
+          node = root.querySelector(sel);
+        } catch (e) {
+          node = null; // không engine nào parse được → bỏ qua selector này
+        }
+        if (node) return cy.wrap(node, opts);
+        return tryNext(idx + 1);
       }
+      // Selector an toàn với jQuery (kể cả :contains()/:has()).
+      let exists = false;
+      try {
+        exists = Cypress.$(root).find(sel).length > 0;
+      } catch (e) {
+        exists = false; // selector không hợp lệ với Sizzle → bỏ qua
+      }
+      if (exists) return cy.get(sel, opts).first();
       return tryNext(idx + 1);
     });
   };
@@ -53,15 +76,24 @@ Cypress.Commands.add('dismissAds', () => {
   ];
 
   cy.get('body', { log: false }).then(($body) => {
+    const root = $body[0];
     let closed = 0;
     for (const sel of adCloseSelectors) {
-      const $el = Cypress.$($body).find(sel).filter(':visible');
-      if ($el.length > 0) {
-        $el.each((_, el) => {
+      // Dùng querySelectorAll (native) thay vì jQuery.find():
+      // Sizzle KHÔNG hỗ trợ cờ case-insensitive [attr*="x" i] và sẽ throw
+      // "unrecognized expression", làm hỏng cả beforeEach hook.
+      let nodes = [];
+      try {
+        nodes = Array.from(root.querySelectorAll(sel));
+      } catch (e) {
+        continue; // selector không hợp lệ với engine hiện tại — bỏ qua an toàn
+      }
+      nodes
+        .filter((el) => el.offsetParent !== null) // chỉ phần tử đang hiển thị
+        .forEach((el) => {
           Cypress.$(el).trigger('click');
           closed += 1;
         });
-      }
     }
     if (closed > 0) cy.log(`dismissAds: đã đóng ${closed} popup`);
   });
