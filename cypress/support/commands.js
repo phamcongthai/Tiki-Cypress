@@ -22,10 +22,78 @@ Cypress.Commands.add('selByList', (list, opts = {}) => {
   return tryNext(0);
 });
 
-/** Vào trang chủ Tiki và đợi search input xuất hiện. */
+/**
+ * Đóng các popup quảng cáo/khuyến mãi của Tiki (Flash Sale, TIKI VIP, voucher…).
+ * Best-effort: không fail nếu không thấy popup.
+ * Có thể được gọi an toàn ở bất kỳ thời điểm nào.
+ */
+Cypress.Commands.add('dismissAds', () => {
+  const adCloseSelectors = [
+    // X button trong dialog quảng cáo
+    'div[role="dialog"] button[aria-label*="close" i]',
+    'div[role="dialog"] button[aria-label*="đóng" i]',
+    'div[role="dialog"] [class*="close" i]',
+    'div[role="dialog"] img[alt*="close" i]',
+    // Popup container theo class phổ biến của Tiki
+    '[class*="PopupStyle"] [class*="close" i]',
+    '[class*="ModalAd"] [class*="close" i]',
+    '[class*="Modal"][class*="ad" i] [class*="close" i]',
+    '[class*="Popup"] button[class*="close" i]',
+    '[class*="Popup"] svg[class*="close" i]',
+    // Floating banner / sticky banner
+    '[class*="floating-banner"] [class*="close" i]',
+    '[class*="sticky"] [class*="close" i]',
+    // App download banner / coupon banner
+    '[class*="app-banner"] [class*="close" i]',
+    '[data-view-id*="popup"] [data-view-id*="close"]',
+    '[data-view-id*="banner"] [data-view-id*="close"]',
+    // Generic fallback: button có aria-label đóng nằm trong overlay/dialog
+    '[class*="overlay"] button[aria-label*="đóng" i]',
+    '[class*="Overlay"] button[aria-label*="Close" i]',
+  ];
+
+  cy.get('body', { log: false }).then(($body) => {
+    let closed = 0;
+    for (const sel of adCloseSelectors) {
+      const $el = Cypress.$($body).find(sel).filter(':visible');
+      if ($el.length > 0) {
+        $el.each((_, el) => {
+          Cypress.$(el).trigger('click');
+          closed += 1;
+        });
+      }
+    }
+    if (closed > 0) cy.log(`dismissAds: đã đóng ${closed} popup`);
+  });
+
+  // Layer 2 — CSS injection ẩn cứng các popup quảng cáo phổ biến.
+  cy.window({ log: false }).then((win) => {
+    if (win.__tikiAdsHidden) return;
+    const style = win.document.createElement('style');
+    style.id = 'cypress-hide-tiki-ads';
+    style.innerHTML = `
+      [class*="PopupStyle"]:not([class*="Login"]),
+      [class*="ModalAd"],
+      [class*="floating-banner"],
+      [class*="app-download-banner"],
+      [class*="sticky-banner"],
+      [class*="coupon-popup"] {
+        display: none !important;
+        visibility: hidden !important;
+      }
+    `;
+    win.document.head.appendChild(style);
+    win.__tikiAdsHidden = true;
+  });
+});
+
+/** Vào trang chủ Tiki và đợi search input xuất hiện. Tự động đóng popup ads. */
 Cypress.Commands.add('visitHome', () => {
   cy.visit('/');
   cy.selByList(SELECTORS.header.searchInput, { timeout: 30000 }).should('be.visible');
+  // Đợi 1 nhịp cho popup ad delay-load xuất hiện rồi mới đóng
+  cy.wait(1500);
+  cy.dismissAds();
 });
 
 /** Thực hiện tìm kiếm với 1 keyword + tùy chọn submit kiểu click hay Enter. */
@@ -55,10 +123,13 @@ Cypress.Commands.add('openRandomProductFromResults', () => {
     const idx = Math.floor(Math.random() * Math.min(cards.length, 10));
     cy.wrap(cards[idx]).scrollIntoView().click({ force: true });
   });
+  cy.wait(1500);
+  cy.dismissAds();
 });
 
 /** Mở popup đăng nhập từ header. */
 Cypress.Commands.add('openLoginPopup', () => {
+  cy.dismissAds();
   cy.selByList(SELECTORS.header.accountLink, { timeout: 20000 })
     .click({ force: true });
   cy.selByList(SELECTORS.loginPopup.container, { timeout: 15000 }).should('be.visible');
@@ -82,6 +153,8 @@ Cypress.Commands.add('closeLoginPopup', () => {
 Cypress.Commands.add('goToCart', () => {
   cy.visit('/checkout/cart');
   cy.selByList(SELECTORS.cart.pageContainer, { timeout: 30000 }).should('exist');
+  cy.wait(1000);
+  cy.dismissAds();
 });
 
 /** Đăng nhập bằng tài khoản test (chỉ chạy khi env có flag bật). */
