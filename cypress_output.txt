@@ -1,0 +1,529 @@
+
+Warning: We failed to trash the existing run results.
+
+This error will not affect or change the exit code.
+
+Error: Command failed: C:\Users\hungn\AppData\Local\Cypress\Cache\14.5.4\Cypress\resources\app\node_modules\trash\lib\windows-trash.exe D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js
+
+    at genericNodeError (node:internal/errors:984:15)
+    at wrappedFn (node:internal/errors:538:14)
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:518:28)
+    at maybeClose (node:internal/child_process:1104:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.4                                                                         │
+  │ Browser:        Chrome 148 (headless)                                                          │
+  │ Node Version:   v24.12.0 (D:\nodejs\node.exe)                                                  │
+  │ Specs:          1 found (cart.cy.js)                                                           │
+  │ Searched:       D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\e2e\cart.cy.js        │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  cart.cy.js                                                                      (1 of 1)
+
+
+   Chi tiết sản phẩm & Giỏ hàng — Tiki
+    Trang chi tiết sản phẩm
+      (Attempt 1 of 2) TKI_CART_001 — Hiển thị các thành phần chính của trang chi tiết
+      1) TKI_CART_001 — Hiển thị các thành phần chính của trang chi tiết
+      √ TKI_CART_002 — Click thumbnail cập nhật ảnh chính (48817ms)
+      (Attempt 1 of 2) TKI_CART_003 — Thông tin giá theo định dạng VND
+      2) TKI_CART_003 — Thông tin giá theo định dạng VND
+      √ TKI_CART_004 — Số lượng mặc định là 1 (28302ms)
+      √ TKI_CART_005 — Tăng số lượng cập nhật giá trị (47844ms)
+      √ TKI_CART_006 — Số lượng không giảm dưới 1 (59512ms)
+      √ TKI_CART_007 — Nhập số lượng hợp lệ vào ô input (47620ms)
+      √ TKI_CART_008 — Nhập số lượng không hợp lệ bị từ chối (28317ms)
+    Thêm sản phẩm và giỏ hàng
+      (Attempt 1 of 2) TKI_CART_009 — Thêm sản phẩm với số lượng 1 vào giỏ
+      3) TKI_CART_009 — Thêm sản phẩm với số lượng 1 vào giỏ
+      (Attempt 1 of 2) TKI_CART_010 — Popup/Thông báo sau khi thêm có nút Xem giỏ hàng
+      4) TKI_CART_010 — Popup/Thông báo sau khi thêm có nút Xem giỏ hàng
+      (Attempt 1 of 2) TKI_CART_011 — Click Xem giỏ hàng điều hướng tới trang giỏ hàng
+      5) TKI_CART_011 — Click Xem giỏ hàng điều hướng tới trang giỏ hàng
+      (Attempt 1 of 2) TKI_CART_012 — Click icon giỏ hàng trên header mở trang giỏ hàng
+      6) TKI_CART_012 — Click icon giỏ hàng trên header mở trang giỏ hàng
+      (Attempt 1 of 2) TKI_CART_013 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm
+      7) TKI_CART_013 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm
+      (Attempt 1 of 2) TKI_CART_014 — Tăng số lượng trong giỏ cập nhật thành tiền
+      8) TKI_CART_014 — Tăng số lượng trong giỏ cập nhật thành tiền
+      (Attempt 1 of 2) TKI_CART_015 — Giảm số lượng trong giỏ cập nhật thành tiền
+      9) TKI_CART_015 — Giảm số lượng trong giỏ cập nhật thành tiền
+      (Attempt 1 of 2) TKI_CART_016 — Giới hạn số lượng theo tồn kho
+      10) TKI_CART_016 — Giới hạn số lượng theo tồn kho
+PS D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress> git reset --hard HEAD~1
+HEAD is now at fc54ac6 Initial commit
+PS D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress> git fetch
+PS D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress> npx cypress run --browser chrome --spec "cypress/e2e/cart.cy.js"
+
+
+DevTools listening on ws://127.0.0.1:55387/devtools/browser/ee042317-ff15-406c-827c-67be2e368550
+Couldn't find tsconfig.json. tsconfig-paths will be skipped
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.4                                                                         │
+  │ Browser:        Chrome 148 (headless)                                                          │
+  │ Node Version:   v24.12.0 (D:\nodejs\node.exe)                                                  │
+  │ Specs:          1 found (cart.cy.js)                                                           │
+  │ Searched:       D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\e2e\cart.cy.js        │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  cart.cy.js                                                                      (1 of 1)
+
+
+  Chi tiết sản phẩm & Giỏ hàng — Tiki
+    Trang chi tiết sản phẩm
+      (Attempt 1 of 2) TKI_CART_001 — Hiển thị các thành phần chính của trang chi tiết
+      1) TKI_CART_001 — Hiển thị các thành phần chính của trang chi tiết
+      √ TKI_CART_002 — Click thumbnail cập nhật ảnh chính (9218ms)
+      (Attempt 1 of 2) TKI_CART_003 — Thông tin giá theo định dạng VND
+      2) TKI_CART_003 — Thông tin giá theo định dạng VND
+      √ TKI_CART_004 — Số lượng mặc định là 1 (8750ms)
+      √ TKI_CART_005 — Tăng số lượng cập nhật giá trị (9398ms)
+      √ TKI_CART_006 — Số lượng không giảm dưới 1 (8012ms)
+      √ TKI_CART_007 — Nhập số lượng hợp lệ vào ô input (9314ms)
+      √ TKI_CART_008 — Nhập số lượng không hợp lệ bị từ chối (11735ms)
+    Thêm sản phẩm và giỏ hàng
+      (Attempt 1 of 2) TKI_CART_009 — Thêm sản phẩm với số lượng 1 vào giỏ
+      3) TKI_CART_009 — Thêm sản phẩm với số lượng 1 vào giỏ
+      (Attempt 1 of 2) TKI_CART_010 — Popup/Thông báo sau khi thêm có nút Xem giỏ hàng
+      4) TKI_CART_010 — Popup/Thông báo sau khi thêm có nút Xem giỏ hàng
+      (Attempt 1 of 2) TKI_CART_011 — Click Xem giỏ hàng điều hướng tới trang giỏ hàng
+      5) TKI_CART_011 — Click Xem giỏ hàng điều hướng tới trang giỏ hàng
+      (Attempt 1 of 2) TKI_CART_012 — Click icon giỏ hàng trên header mở trang giỏ hàng
+      6) TKI_CART_012 — Click icon giỏ hàng trên header mở trang giỏ hàng
+      (Attempt 1 of 2) TKI_CART_013 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm
+      7) TKI_CART_013 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm
+      (Attempt 1 of 2) TKI_CART_014 — Tăng số lượng trong giỏ cập nhật thành tiền
+      8) TKI_CART_014 — Tăng số lượng trong giỏ cập nhật thành tiền
+      (Attempt 1 of 2) TKI_CART_015 — Giảm số lượng trong giỏ cập nhật thành tiền
+      9) TKI_CART_015 — Giảm số lượng trong giỏ cập nhật thành tiền
+      (Attempt 1 of 2) TKI_CART_016 — Giới hạn số lượng theo tồn kho
+      10) TKI_CART_016 — Giới hạn số lượng theo tồn kho
+      (Attempt 1 of 2) TKI_CART_017 — Chọn/bỏ chọn 1 sản phẩm cập nhật tổng tiền
+      11) TKI_CART_017 — Chọn/bỏ chọn 1 sản phẩm cập nhật tổng tiền
+      (Attempt 1 of 2) TKI_CART_018 — Chọn/bỏ chọn tất cả sản phẩm
+      12) TKI_CART_018 — Chọn/bỏ chọn tất cả sản phẩm
+      √ TKI_CART_019 — Sản phẩm hết hàng không được chọn thanh toán (2843ms)
+      (Attempt 1 of 2) TKI_CART_020 — Xóa 1 sản phẩm khỏi giỏ
+      13) TKI_CART_020 — Xóa 1 sản phẩm khỏi giỏ
+      (Attempt 1 of 2) TKI_CART_021 — Tổng tiền hàng = tổng thành tiền các sản phẩm được chọn
+      14) TKI_CART_021 — Tổng tiền hàng = tổng thành tiền các sản phẩm được chọn
+      (Attempt 1 of 2) TKI_CART_022 — Hiển thị khu vực khuyến mãi/freeship
+      15) TKI_CART_022 — Hiển thị khu vực khuyến mãi/freeship
+      (Attempt 1 of 2) TKI_CART_023 — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm
+      16) TKI_CART_023 — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm
+      (Attempt 1 of 2) TKI_CART_024 — Freeship đạt ngưỡng được áp dụng
+      17) TKI_CART_024 — Freeship đạt ngưỡng được áp dụng
+      (Attempt 1 of 2) TKI_CART_025 — Click Mua Hàng khi chưa đăng nhập → yêu cầu đăng nhập
+      18) TKI_CART_025 — Click Mua Hàng khi chưa đăng nhập → yêu cầu đăng nhập
+      √ TKI_CART_026 — Click Mua ngay khi chưa đăng nhập → popup đăng nhập (28514ms)
+      √ TKI_CART_027 — Click Mua Hàng sau khi đăng nhập → đi tới bước thanh toán (551ms)
+      √ TKI_CART_028 — Giỏ hàng trống hiển thị trạng thái phù hợp (13712ms)
+
+
+  10 passing (17m)
+  18 failing
+
+  1) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Trang chi tiết sản phẩm
+         TKI_CART_001 — Hiển thị các thành phần chính của trang chi tiết:
+     AssertionError: Timed out retrying after 15000ms: expected '<img.sc-900210d0-0.hFEtiz.title-img>' to have attribute 'src'    
+      at Context.eval (webpack://tiki-cypress/./cypress/e2e/cart.cy.js:25:38)
+
+  2) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Trang chi tiết sản phẩm
+         TKI_CART_003 — Thông tin giá theo định dạng VND:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_main_view_listing_price"] | .product-price__current-price | [class*="current-price"]
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  3) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_009 — Thêm sản phẩm với số lượng 1 vào giỏ:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  4) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_010 — Popup/Thông báo sau khi thêm có nút Xem giỏ hàng:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  5) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_011 — Click Xem giỏ hàng điều hướng tới trang giỏ hàng:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  6) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_012 — Click icon giỏ hàng trên header mở trang giỏ hàng:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  7) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_013 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  8) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_014 — Tăng số lượng trong giỏ cập nhật thành tiền:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  9) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_015 — Giảm số lượng trong giỏ cập nhật thành tiền:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  10) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_016 — Giới hạn số lượng theo tồn kho:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  11) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_017 — Chọn/bỏ chọn 1 sản phẩm cập nhật tổng tiền:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  12) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_018 — Chọn/bỏ chọn tất cả sản phẩm:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  13) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_020 — Xóa 1 sản phẩm khỏi giỏ:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  14) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_021 — Tổng tiền hàng = tổng thành tiền các sản phẩm được chọn:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  15) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_022 — Hiển thị khu vực khuyến mãi/freeship:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  16) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_023 — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  17) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_024 — Freeship đạt ngưỡng được áp dụng:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+  18) Chi tiết sản phẩm & Giỏ hàng — Tiki
+       Thêm sản phẩm và giỏ hàng
+         TKI_CART_025 — Click Mua Hàng khi chưa đăng nhập → yêu cầu đăng nhập:
+     Error: Không tìm thấy element với selectors: [data-view-id="pdp_add_to_cart_button"] | button:contains("Thêm vào giỏ")       
+      at tryNext (webpack://tiki-cypress/./cypress/support/commands.js:17:12)
+      at Context.eval (webpack://tiki-cypress/./cypress/support/commands.js:42:13)
+      at getRet (https://tiki.vn/__cypress/runner/cypress_runner.js:121066:20)
+      at tryCatcher (https://tiki.vn/__cypress/runner/cypress_runner.js:1777:23)
+      at Promise.attempt.Promise.try (https://tiki.vn/__cypress/runner/cypress_runner.js:4285:29)
+      at Context.thenFn (https://tiki.vn/__cypress/runner/cypress_runner.js:121077:66)
+      at Context.then (https://tiki.vn/__cypress/runner/cypress_runner.js:121328:21)
+      at wrapped (https://tiki.vn/__cypress/runner/cypress_runner.js:141671:19)
+      at <unknown> (https://tiki.vn/__cypress/runner/cypress_runner.js:147616:15)
+
+
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        28                                                                               │
+  │ Passing:      10                                                                               │
+  │ Failing:      18                                                                               │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  36                                                                               │
+  │ Video:        false                                                                            │
+  │ Duration:     17 minutes, 2 seconds                                                            │
+  │ Spec Ran:     cart.cy.js                                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Trang chi tiết sản phẩm -- TKI_CART_001 —
+      Hiển thị các thành phần chính của trang chi tiết (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Trang chi tiết sản phẩm -- TKI_CART_001 —
+      Hiển thị các thành phần chính của trang chi tiết (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Trang chi tiết sản phẩm -- TKI_CART_003 —
+      Thông tin giá theo định dạng VND (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Trang chi tiết sản phẩm -- TKI_CART_003 —
+      Thông tin giá theo định dạng VND (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_009
+      — Thêm sản phẩm với số lượng 1 vào giỏ (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_009
+      — Thêm sản phẩm với số lượng 1 vào giỏ (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_010
+      — PopupThông báo sau khi thêm có nút Xem giỏ hàng (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_010
+      — PopupThông báo sau khi thêm có nút Xem giỏ hàng (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_011
+      — Click Xem giỏ hàng điều hướng tới trang giỏ hàng (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_011
+      — Click Xem giỏ hàng điều hướng tới trang giỏ hàng (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_012
+      — Click icon giỏ hàng trên header mở trang giỏ hàng (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_012
+      — Click icon giỏ hàng trên header mở trang giỏ hàng (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_013
+      — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_013
+      — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_014
+      — Tăng số lượng trong giỏ cập nhật thành tiền (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_014
+      — Tăng số lượng trong giỏ cập nhật thành tiền (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_015
+      — Giảm số lượng trong giỏ cập nhật thành tiền (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_015
+      — Giảm số lượng trong giỏ cập nhật thành tiền (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_016
+      — Giới hạn số lượng theo tồn kho (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_016
+      — Giới hạn số lượng theo tồn kho (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_017
+      — Chọnbỏ chọn 1 sản phẩm cập nhật tổng tiền (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_017
+      — Chọnbỏ chọn 1 sản phẩm cập nhật tổng tiền (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_018
+      — Chọnbỏ chọn tất cả sản phẩm (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_018
+      — Chọnbỏ chọn tất cả sản phẩm (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_020
+      — Xóa 1 sản phẩm khỏi giỏ (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_020
+      — Xóa 1 sản phẩm khỏi giỏ (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_021
+      — Tổng tiền hàng = tổng thành tiền các sản phẩm được chọn (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_021
+      — Tổng tiền hàng = tổng thành tiền các sản phẩm được chọn (failed) (attempt 2).
+     png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_022
+      — Hiển thị khu vực khuyến mãifreeship (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_022
+      — Hiển thị khu vực khuyến mãifreeship (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_023
+      — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_023
+      — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm (failed) (attempt 2)
+     .png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_024
+      — Freeship đạt ngưỡng được áp dụng (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_024
+      — Freeship đạt ngưỡng được áp dụng (failed) (attempt 2).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_025
+      — Click Mua Hàng khi chưa đăng nhập → yêu cầu đăng nhập (failed).png
+  -  D:\Documents\Lap trinh\TikiAutoTest\Tiki-Cypress\cypress\screenshots\cart.cy.js\     (1258x622)
+     Chi tiết sản phẩm & Giỏ hàng — Tiki -- Thêm sản phẩm và giỏ hàng -- TKI_CART_025
+      — Click Mua Hàng khi chưa đăng nhập → yêu cầu đăng nhập (failed) (attempt 2).pn
+     g
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ×  cart.cy.js                               17:02       28       10       18        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ×  1 of 1 failed (100%)                     17:02       28       10       18        -        -

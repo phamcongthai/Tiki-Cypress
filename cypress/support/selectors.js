@@ -17,15 +17,20 @@ module.exports = {
     searchInput: [
       'input[data-view-id="main_search_form_input"]',
       'input[name="q"]',
-      'header input[placeholder][type="text"]',
+      'header input[placeholder*="Tìm kiếm"]',
+      'input[placeholder*="Tìm kiếm"]',
+      'input[type="text"][placeholder*="Tiki"]',
     ],
     searchButton: [
       '[data-view-id="main_search_form_button"]',
       'button[data-view-id*="main_search_form"]',
-      'button[data-view-id*="search"]',
-      'form[action*="/search"] button[type="submit"]',
+      'button:contains("Tìm kiếm")',
+      'header button:has(img)',
     ],
     accountLink: [
+      '#main-header span:contains("Tài khoản")',
+      '#main-header a:contains("Tài khoản")',
+      '#main-header div:contains("Tài khoản")',
       '[data-view-id="header_header_account_link"]',
       '[data-view-id*="account"]',
       'a:contains("Tài khoản")',
@@ -33,6 +38,8 @@ module.exports = {
     cartLink: [
       '[data-view-id="header_header_cart_link"]',
       'a[href*="/checkout/cart"]',
+      '#main-header > div > div > div.sc-b1e0edd7-0.ljZvVE > div.sc-ee984840-0.gypTeU > div.sc-7d80e456-15.dCdTIg > div.sc-7d80e456-14.rZetm > a',
+      '#main-header > div > div > div.sc-b1e0edd7-0.ljZvVE > div.sc-ee984840-0.gypTeU > div.sc-7d80e456-15.dCdTIg > div.sc-7d80e456-14.rZetm > a > div > div > img',
     ],
     cartBadge: [
       '[data-view-id="header_header_cart_link"] span',
@@ -86,6 +93,8 @@ module.exports = {
       '[data-view-id="pdp_main_view_listing_price"]',
       '.product-price__current-price',
       '[class*="current-price"]',
+      '[class*="price-discount"]',
+      'div[class*="Price"]'
     ],
     originalPrice: [
       '.product-price__list-price',
@@ -107,6 +116,8 @@ module.exports = {
     addToCartButton: [
       '[data-view-id="pdp_add_to_cart_button"]',
       'button:contains("Thêm vào giỏ")',
+      'button:contains("Chọn mua")',
+      '[class*="btn-add-to-cart"]'
     ],
     buyNowButton: [
       '[data-view-id="pdp_buy_now_button"]',
@@ -130,10 +141,21 @@ module.exports = {
   },
 
   cart: {
-    pageContainer: ['[data-view-id="cart_page_container"]', 'main'],
+    pageContainer: [
+      'div.cart-page',
+      'main div.sc-e1537fa2-0',
+      '[data-view-id="cart_page_container"]',
+      '[data-view-id*="cart_page"]',
+      '[class*="CartPage"]',
+      '[class*="cart-page"]',
+    ],
     itemRow: [
       '[data-view-id="cart_item_view"]',
+      '[data-view-id*="cart_item"]',
+      '[data-view-id*="cart-item"]',
       '[class*="cart-item"]',
+      '[class*="CartItem"]',
+      '[class*="StyledCartItem"]',
       'div[class*="ItemStyled"]',
     ],
     itemName: ['[class*="item-name"]', 'a[class*="name"]'],
@@ -170,6 +192,9 @@ module.exports = {
       'button:contains("Mua Hàng")',
     ],
     emptyState: [
+      'div.empty',
+      '.empty__message1',
+      '.empty__message2',
       ':contains("Giỏ hàng trống")',
       ':contains("Không có sản phẩm")',
       'img[alt*="mpty"]',
@@ -180,6 +205,8 @@ module.exports = {
 
   loginPopup: {
     container: [
+      'div.ReactModalPortal div.sc-8a10c93b-0.fmsiux',
+      'div.sc-8a10c93b-0.fmsiux',
       '[data-view-id="login_dialog"]',
       'div[role="dialog"]',
       '[class*="ModalLogin"]',
@@ -196,6 +223,8 @@ module.exports = {
       'button:contains("Tiếp tục")',
     ],
     closeButton: [
+      'div.sc-8a10c93b-0.fmsiux button svg',
+      'div.sc-8a10c93b-0.fmsiux button',
       'button[aria-label*="lose"]',
       'button[class*="close"]',
       'svg[data-view-id*="close"]',
@@ -209,7 +238,19 @@ module.exports = {
       'input[name="email"]',
       'input[placeholder*="mail"]',
     ],
-    passwordInput: ['input[type="password"]', 'input[name="password"]'],
+    passwordInput: [
+      'div.sc-8a10c93b-0.fmsiux form input[type="password"]',
+      'div.sc-8a10c93b-0.fmsiux form input[placeholder="Mật khẩu"]',
+      'body > div.ReactModalPortal > div > div > div > div.sc-2745a82-1.ehiTvW > div > form > div > input[type="password"]',
+      'input[type="password"]',
+      'input[name="password"]',
+      'input[name="pass"]',
+      'div[role="dialog"] input[placeholder*="ật khẩu"]',
+      'div[role="dialog"] input[placeholder*="hập mật khẩu"]',
+      'div[role="dialog"] input[autocomplete="current-password"]',
+      'input[placeholder*="Mật khẩu"]',
+      'input[placeholder*="mật khẩu"]',
+    ],
     emailSubmitButton: [
       'button:contains("Đăng nhập")',
       'button[type="submit"]',
