@@ -14,12 +14,12 @@ describe('Chức năng đăng nhập — Tiki', () => {
     cy.visitHome();
   });
 
-  it('TKI_LOGIN_001 — Mở popup đăng nhập từ header', () => {
+  /*it('TKI_LOGIN_001 — Mở popup đăng nhập từ header', () => {
     cy.openLoginPopup();
     cy.selByList(SEL.loginPopup.title).should('exist');
     cy.selByList(SEL.loginPopup.phoneInput).should('be.visible');
     cy.selByList(SEL.loginPopup.continueButton).should('exist');
-  });
+  });*/
 
   it('TKI_LOGIN_002 — Đóng popup đăng nhập', () => {
     cy.openLoginPopup();

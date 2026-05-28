@@ -178,7 +178,7 @@ module.exports = {
     promotionBlock: [':contains("Khuyến Mãi")', ':contains("Khuyến mãi")'],
   },
 
-  loginPopup: {
+  /*loginPopup: {
     container: [
       '[data-view-id="login_dialog"]',
       'div[role="dialog"]',
@@ -238,7 +238,63 @@ module.exports = {
       ':contains("không đúng")',
     ],
     otpInput: ['input[name="otp"]', 'input[maxlength="6"]'],
-  },
+  },*/
+
+  loginPopup: {
+  container: [
+    'div.sc-2745a82-0',           // Class cha bọc toàn bộ popup hiện tại
+    'div:has(input[name="tel"])'   // Dự phòng: Tìm div chứa ô nhập phone
+  ],
+  title: [':contains("Xin chào,")'],
+  phoneInput: [
+    'input[name="tel"]',
+    'input[type="tel"]',
+    'input[placeholder="Số điện thoại"]',
+  ],
+  termsCheckbox: ['input[type="checkbox"]'],
+  continueButton: [
+    'button:contains("Tiếp Tục")',
+    'form button',
+  ],
+  closeButton: [
+    'button.btn-close',
+    'img.close-img',
+  ],
+  emailLoginLink: [
+    'p.login-with-email',
+    'p:contains("Đăng nhập bằng email")',
+  ],
+  emailInput: [
+    'input[type="email"]',
+    'input[name="email"]',
+  ],
+  passwordInput: ['input[type="password"]', 'input[name="password"]'],
+  emailSubmitButton: [
+    'button:contains("Đăng nhập")',
+    'button[type="submit"]',
+  ],
+  termsLink: [
+    'a:contains("điều khoản sử dụng")',
+    'a[href*="dieu-khoan"]',
+  ],
+  privacyLink: [
+    'a:contains("Chính sách bảo mật")',
+    'a[href*="bao-mat"]',
+  ],
+  googleButton: [
+    'img[alt="google"]',
+    'li:has(img[alt="google"])',
+  ],
+  facebookButton: [
+    'img[alt="facebook"]',
+    'li:has(img[alt="facebook"])',
+  ],
+  errorMessage: [
+    '[class*="error"]',
+    ':contains("không hợp lệ")',
+  ],
+  otpInput: ['input[name="otp"]', 'input[maxlength="6"]'],
+},
 
   loggedInHeader: {
     accountText: [':contains("Tài khoản") + *', '[data-view-id*="account_name"]'],
