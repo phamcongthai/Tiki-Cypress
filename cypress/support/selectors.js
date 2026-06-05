@@ -148,6 +148,8 @@ module.exports = {
       '[data-view-id*="cart_page"]',
       '[class*="CartPage"]',
       '[class*="cart-page"]',
+      'main',
+      '#main',
     ],
     itemRow: [
       '[data-view-id="cart_item_view"]',
@@ -157,16 +159,20 @@ module.exports = {
       '[class*="CartItem"]',
       '[class*="StyledCartItem"]',
       'div[class*="ItemStyled"]',
+      // Structural selector without main prefix since Tiki's cart page might not have a main tag
+      'div:has(input):has(img):has(:contains("₫")):not(:has(div:has(input):has(img):has(:contains("₫"))))'
     ],
-    itemName: ['[class*="item-name"]', 'a[class*="name"]'],
-    itemPrice: ['[class*="item-price"]', '[class*="ProductPrice"]'],
-    itemQuantityInput: ['input[type="text"][value]'],
-    itemQuantityIncrease: ['button[class*="increase"]', 'button:contains("+")'],
-    itemQuantityDecrease: ['button[class*="decrease"]', 'button:contains("-")'],
+    itemName: ['[class*="item-name"]', 'a[class*="name"]', 'a[href*=".html"]', 'a[href*="-p"]'],
+    itemPrice: ['[class*="item-price"]', '[class*="ProductPrice"]', 'div:contains("₫"):not(:has(div:contains("₫")))', 'span:contains("₫"):not(:has(span:contains("₫")))'],
+    itemQuantityInput: ['input[type="text"][value]', 'input.qty-input', 'input[type="tel"]'],
+    itemQuantityIncrease: ['button[class*="increase"]', 'button:contains("+")', '.qty-increase', '[data-view-id*="increase"]', 'img[alt*="increase"]'],
+    itemQuantityDecrease: ['button[class*="decrease"]', 'button:contains("-")', '.qty-decrease', '[data-view-id*="decrease"]', 'img[alt*="decrease"]'],
     itemDeleteButton: [
       'button[class*="delete"]',
       'svg[data-view-id*="trash"]',
       'button[aria-label*="óa"]',
+      'img[src*="trash"]',
+      'img[alt*="delete"]',
     ],
     itemSubtotal: ['[class*="item-total"]', '[class*="ProductTotalPrice"]'],
     itemCheckbox: ['input[type="checkbox"]'],
@@ -284,5 +290,10 @@ module.exports = {
   loggedInHeader: {
     accountText: [':contains("Tài khoản") + *', '[data-view-id*="account_name"]'],
     avatar: ['img[alt*="vatar"]', '[data-view-id*="account_avatar"]'],
+    logoutAction: [
+      'a:contains("Đăng xuất")',
+      'button:contains("Đăng xuất")',
+      '[data-view-id*="logout"]',
+    ],
   },
 };

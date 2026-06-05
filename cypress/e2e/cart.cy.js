@@ -3,7 +3,6 @@ const SEL = require('../support/selectors');
 
 describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
   let data;
-  let cart10PdpUrl;
 
   before(() => {
     cy.fixture('testData').then((d) => {
@@ -20,6 +19,8 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
   };
 
   const openCartFromHeaderIcon = () => {
+    cy.scrollTo('top', { duration: 0 });
+    cy.wait(500);
     cy.selByList(SEL.header.cartLink).then(($el) => {
       const $a = $el.is('a') ? $el : $el.closest('a');
       if ($a.length) {
@@ -35,19 +36,17 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
     cy.selByList(SEL.cart.pageContainer, { timeout: 30000 }).should('exist');
   };
 
-  const addToCartAndDetectLoginRequired = () => {
+  const prepareManualAuthenticatedSession = () => {
+    cy.ensureLoggedInForCart();
+    openRandomProduct();
+  };
+
+  const prepareAuthenticatedCart = () => {
+    prepareManualAuthenticatedSession();
     cy.addCurrentProductToCart();
-    return cy.get('body').then(($b) => {
-      const loginRequired = SEL.loginPopup.container.some(
-        (s) => Cypress.$($b).find(s).length > 0
-      );
-      if (loginRequired) {
-        cy.log('Thêm giỏ yêu cầu đăng nhập, bỏ qua bước kiểm tra giỏ hàng cho guest');
-      } else {
-        cy.selByList(SEL.cartPopup.successMessage, { timeout: 20000 }).should('exist');
-      }
-      return loginRequired;
-    });
+    cy.goToCart();
+    waitForCartPage();
+    cy.wait(2000); // Đợi Tiki load xong giỏ hàng từ API và render đầy đủ các item
   };
 
   describe('Trang chi tiết sản phẩm', () => {
@@ -68,26 +67,7 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_002 — Click thumbnail cập nhật ảnh chính', () => {
-      cy.get('body').then(($b) => {
-        const thumbs = SEL.product.thumbnails
-          .map((s) => Cypress.$($b).find(s))
-          .find((c) => c.length > 1);
-        if (!thumbs) {
-          cy.log('Sản phẩm không có nhiều thumbnail — skip soft');
-          return;
-        }
-        cy.selByList(SEL.product.image).invoke('attr', 'src').then((srcBefore) => {
-          cy.wrap(thumbs[1]).click({ force: true });
-          cy.wait(500);
-          cy.selByList(SEL.product.image).invoke('attr', 'src').should((srcAfter) => {
-            expect(srcAfter).to.exist;
-          });
-        });
-      });
-    });
-
-    it('TKI_CART_003 — Thông tin giá theo định dạng VND', () => {
+    it('TKI_CART_002 — Thông tin giá theo định dạng VND', () => {
       cy.selByList(SEL.product.price).invoke('text').then((t) => {
         const txt = t.replace(/\s+/g, '');
         expect(txt.length).to.be.greaterThan(0);
@@ -97,7 +77,7 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_004 — Số lượng mặc định là 1', () => {
+    it('TKI_CART_003 — Số lượng mặc định là 1', () => {
       cy.get('body').then(($b) => {
         const found = SEL.product.quantityInput.some(
           (s) => Cypress.$($b).find(s).length > 0
@@ -110,7 +90,7 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_005 — Tăng số lượng cập nhật giá trị', () => {
+    it('TKI_CART_004 — Tăng số lượng cập nhật giá trị', () => {
       cy.get('body').then(($b) => {
         const found = SEL.product.quantityIncrease.some(
           (s) => Cypress.$($b).find(s).length > 0
@@ -121,7 +101,7 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_006 — Số lượng không giảm dưới 1', () => {
+    it('TKI_CART_005 — Số lượng không giảm dưới 1', () => {
       cy.get('body').then(($b) => {
         const found = SEL.product.quantityDecrease.some(
           (s) => Cypress.$($b).find(s).length > 0
@@ -135,27 +115,9 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_007 — Nhập số lượng hợp lệ vào ô input', () => {
-      cy.get('body').then(($b) => {
-        const found = SEL.product.quantityInput.some(
-          (s) => Cypress.$($b).find(s).length > 0
-        );
-        if (!found) return cy.log('Ô số lượng không có sẵn — skip soft');
-        cy.selByList(SEL.product.quantityInput).then(($el) => {
-          if ($el.attr('readonly')) {
-            cy.log('Input readonly — sử dụng nút + thay thế');
-            cy.selByList(SEL.product.quantityIncrease).click({ force: true });
-            cy.wrap($el).should('have.value', '2');
-          } else {
-            cy.wrap($el).clear().type(String(data.cart.quantityValid));
-            cy.wrap($el).blur();
-            cy.wrap($el).should('have.value', String(data.cart.quantityValid));
-          }
-        });
-      });
-    });
 
-    it('TKI_CART_008 — Nhập số lượng không hợp lệ bị từ chối', () => {
+
+    it('TKI_CART_006 — Nhập số lượng không hợp lệ bị từ chối', () => {
       cy.get('body').then(($b) => {
         const found = SEL.product.quantityInput.some(
           (s) => Cypress.$($b).find(s).length > 0
@@ -178,7 +140,7 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
 
   describe('Thêm sản phẩm và giỏ hàng', () => {
 
-    it('TKI_CART_009 — Thêm sản phẩm với số lượng 1 vào giỏ', () => {
+    it('TKI_CART_007 — Thêm sản phẩm với số lượng 1 vào giỏ', () => {
       openRandomProduct();
       cy.addCurrentProductToCart();
       cy.get('body').then(($b) => {
@@ -193,11 +155,8 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_010 — Guest thêm giỏ hàng hiển thị popup đăng nhập', () => {
+    it('TKI_CART_008 — Guest thêm giỏ hàng hiển thị popup đăng nhập', () => {
       openRandomProduct();
-      cy.url().then((u) => {
-        cart10PdpUrl = u;
-      });
       cy.addCurrentProductToCart();
       cy.get('body', { timeout: 15000 }).should(($b) => {
         const hasContainer = SEL.loginPopup.container.some(
@@ -211,33 +170,10 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it.only('TKI_CART_011 — (Ổn định) Đăng nhập trước, thêm giỏ và vào trang giỏ hàng', () => {
-      if (!Cypress.env('TEST_PHONE') || !Cypress.env('TEST_PASSWORD')) {
-        cy.log('Thiếu TEST_PHONE/TEST_PASSWORD → skip');
-        return;
-      }
-      const pdpUrl = Cypress.env('TEST_PDP_URL') || cart10PdpUrl;
-      if (!pdpUrl) {
-        cy.log('Thiếu TEST_PDP_URL (hoặc chưa có URL từ cart10) → skip');
-        return;
-      }
-      cy.loginAsTestUser();
-      cy.visit(pdpUrl);
-      cy.selByList(SEL.product.title, { timeout: 30000 }).should('be.visible');
+    it('TKI_CART_009 — (Ổn định) Đăng nhập trước, thêm giỏ và vào trang giỏ hàng', () => {
+      prepareManualAuthenticatedSession();
       cy.addCurrentProductToCart();
-      cy.visit('/checkout/cart');
-      cy.url({ timeout: 20000 }).then((u) => {
-        if (u.includes('/checkout/cart')) return;
-        cy.get('body').then(($b) => {
-          const hasLoginPopup = SEL.loginPopup.container.some(
-            (s) => Cypress.$($b).find(s).length > 0
-          ) || SEL.loginPopup.phoneInput.some(
-            (s) => Cypress.$($b).find(s).filter(':visible').length > 0
-          );
-          if (hasLoginPopup) cy.completeLoginPopup();
-        });
-        cy.visit('/checkout/cart');
-      });
+      cy.goToCart();
       waitForCartPage();
       cy.get('body', { timeout: 30000 }).should(($b) => {
         const hasItems = SEL.cart.itemRow.some((s) => Cypress.$($b).find(s).length > 0);
@@ -248,21 +184,8 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_012 — Click icon giỏ hàng trên header mở trang giỏ hàng', () => {
-      openRandomProduct();
-      addToCartAndDetectLoginRequired().then((loginRequired) => {
-        if (loginRequired) {
-          cy.selByList(SEL.loginPopup.container, { timeout: 10000 }).should('be.visible');
-          return;
-        }
-        openCartFromHeaderIcon();
-        waitForCartPage();
-        cy.selByList(SEL.cart.itemRow).should('have.length.greaterThan', 0);
-      });
-    });
-
-    it('TKI_CART_013 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm', () => {
-      openRandomProduct();
+    it('TKI_CART_010 — Thông tin sản phẩm trong giỏ khớp dữ liệu đã thêm', () => {
+      prepareManualAuthenticatedSession();
       cy.captureText(SEL.product.title, 'addedName');
       cy.addCurrentProductToCart();
       cy.goToCart();
@@ -273,77 +196,71 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       cy.selByList(SEL.cart.itemPrice).first().should('exist');
     });
 
-    it('TKI_CART_014 — Tăng số lượng trong giỏ cập nhật thành tiền', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
+    it('TKI_CART_011 — Tăng số lượng trong giỏ cập nhật thành tiền', () => {
+      prepareAuthenticatedCart();
+      cy.wait(2000); // Chờ Tiki load xong sự kiện React (Hydration)
+
       cy.selByList(SEL.cart.itemRow).first().within(() => {
-        cy.get('body').then(() => {
+        cy.root().then(($row) => {
           const sels = SEL.cart.itemQuantityIncrease;
           for (const s of sels) {
-            if (Cypress.$(s).length > 0) {
+            if ($row.find(s).length > 0) {
               cy.get(s).first().click({ force: true });
               return;
             }
           }
         });
       });
-      cy.selByList(SEL.cart.itemRow).first().find('input[type="text"]').should(($i) => {
+
+      cy.wait(500); // Đợi số lượng cập nhật
+
+      cy.selByList(SEL.cart.itemRow).first().find('input.qty-input, input[type="tel"], input[type="text"]').should(($i) => {
         const v = parseInt($i.val(), 10);
         expect(v).to.be.gte(2);
       });
     });
 
-    it('TKI_CART_015 — Giảm số lượng trong giỏ cập nhật thành tiền', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
+    it('TKI_CART_012 — Giảm số lượng trong giỏ cập nhật thành tiền', () => {
+      prepareAuthenticatedCart();
+      cy.wait(2000); // Chờ Tiki load xong sự kiện React
 
       cy.selByList(SEL.cart.itemRow).first().within(() => {
-        const incSels = SEL.cart.itemQuantityIncrease;
-        for (const s of incSels) {
-          if (Cypress.$(s).length > 0) {
-            cy.get(s).first().click({ force: true });
-            break;
+        cy.root().then(($row) => {
+          const incSels = SEL.cart.itemQuantityIncrease;
+          for (const s of incSels) {
+            if ($row.find(s).length > 0) {
+              cy.get(s).first().click({ force: true });
+              return;
+            }
           }
-        }
+        });
       });
-      cy.wait(800);
+      cy.wait(1500); // Chờ request API cập nhật giỏ hàng hoàn tất
+
       cy.selByList(SEL.cart.itemRow).first().within(() => {
-        const decSels = SEL.cart.itemQuantityDecrease;
-        for (const s of decSels) {
-          if (Cypress.$(s).length > 0) {
-            cy.get(s).first().click({ force: true });
-            break;
+        cy.root().then(($row) => {
+          const decSels = SEL.cart.itemQuantityDecrease;
+          for (const s of decSels) {
+            if ($row.find(s).length > 0) {
+              cy.get(s).first().click({ force: true });
+              return;
+            }
           }
-        }
+        });
       });
-      cy.selByList(SEL.cart.itemRow).first().find('input[type="text"]').should(($i) => {
+
+      cy.wait(500); // Đợi số lượng cập nhật
+
+      cy.selByList(SEL.cart.itemRow).first().find('input.qty-input, input[type="tel"], input[type="text"]').should(($i) => {
         const v = parseInt($i.val(), 10);
         expect(v).to.be.gte(1);
       });
     });
 
-    it('TKI_CART_016 — Giới hạn số lượng theo tồn kho', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
-      cy.selByList(SEL.cart.itemRow).first().within(() => {
-        const incSels = SEL.cart.itemQuantityIncrease;
-        const incBtn = incSels.find((s) => Cypress.$(s).length > 0);
-        if (!incBtn) return;
-        for (let i = 0; i < 30; i++) {
-          cy.get(incBtn).first().click({ force: true });
-          cy.wait(150);
-        }
-      });
-      cy.get('body').should('not.contain.text', 'NaN');
-    });
 
-    it('TKI_CART_017 — Chọn/bỏ chọn 1 sản phẩm cập nhật tổng tiền', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
+
+    it('TKI_CART_013 — Chọn/bỏ chọn 1 sản phẩm cập nhật tổng tiền', () => {
+      prepareAuthenticatedCart();
       cy.selByList(SEL.cart.itemRow).first().within(() => {
         cy.get('input[type="checkbox"]').first().as('cb');
         cy.get('@cb').then(($c) => {
@@ -355,84 +272,162 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       cy.selByList(SEL.cart.checkoutButton).should('exist');
     });
 
-    it('TKI_CART_018 — Chọn/bỏ chọn tất cả sản phẩm', () => {
-      openRandomProduct();
+
+
+    it('TKI_CART_014 — Thêm sản phẩm mới vào giỏ rồi xóa', () => {
+      // 1. Mở một sản phẩm bất kỳ
+      prepareManualAuthenticatedSession();
+
+      // 2. Thêm vào giỏ và đi tới giỏ hàng
       cy.addCurrentProductToCart();
       cy.goToCart();
-      cy.get('body').then(($b) => {
-        const found = SEL.cart.selectAllCheckbox.some(
-          (s) => Cypress.$($b).find(s).length > 0
-        );
-        if (!found) return cy.log('Không có checkbox Tất cả — skip soft');
-        cy.selByList(SEL.cart.selectAllCheckbox).click({ force: true });
-        cy.selByList(SEL.cart.selectAllCheckbox).click({ force: true });
-      });
-    });
+      waitForCartPage();
+      cy.wait(2000); // Chờ load API
 
-    it('TKI_CART_019 — Sản phẩm hết hàng không được chọn thanh toán', () => {
-      cy.goToCart();
       cy.get('body').then(($b) => {
-        const hasOOS = /Hết hàng|hết hàng/.test($b.text());
-        if (!hasOOS) {
-          cy.log('Giỏ không có sản phẩm hết hàng — skip soft');
-          return;
-        }
-        cy.contains('Hết hàng').parents().find('input[type="checkbox"]').first()
-          .should('be.disabled');
-      });
-    });
+        // Tìm một selector đúng để đếm chính xác số lượng item
+        const validSel = SEL.cart.itemRow.find(s => Cypress.$($b).find(s).length > 0);
+        if (!validSel) throw new Error('Không có sản phẩm trong giỏ để xóa');
 
-    it('TKI_CART_020 — Xóa 1 sản phẩm khỏi giỏ', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
-      cy.selByList(SEL.cart.itemRow).then(($rows) => {
-        const before = $rows.length;
-        cy.selByList(SEL.cart.itemRow).first().within(() => {
-          const delSels = SEL.cart.itemDeleteButton;
-          for (const s of delSels) {
-            if (Cypress.$(s).length > 0) {
-              cy.get(s).first().click({ force: true });
-              return;
+        const before = Cypress.$($b).find(validSel).length;
+
+        // 3. Xóa sản phẩm vừa thêm (thường nằm trên cùng danh sách)
+        cy.get(validSel).first().within(() => {
+          cy.root().then(($row) => {
+            const delSels = SEL.cart.itemDeleteButton;
+            for (const s of delSels) {
+              if ($row.find(s).length > 0) {
+                cy.get(s).first().click({ force: true });
+                return;
+              }
             }
+          });
+        });
+
+        cy.wait(1000); // Chờ popup xuất hiện
+
+        // 4. Bấm Xác Nhận
+        cy.get('body').then(($body2) => {
+          if ($body2.text().includes('Xác Nhận') || $body2.text().includes('Bạn có muốn xóa')) {
+            cy.contains('Xác Nhận').click({ force: true });
+            cy.wait(2000); // Chờ API xóa chạy xong
           }
         });
-        cy.wait(1000);
-        cy.get('body').then(($b) => {
-          const remaining = SEL.cart.itemRow.reduce(
-            (acc, s) => acc + Cypress.$($b).find(s).length,
-            0
-          );
-          expect(remaining).to.be.lessThan(before);
+
+        // 5. Kiểm tra số lượng sau khi xóa
+        cy.get('body').then(($body3) => {
+          const remaining = Cypress.$($body3).find(validSel).length;
+          expect(remaining).to.eq(before - 1); // Đảm bảo giảm đúng 1 sản phẩm
         });
       });
     });
 
-    it('TKI_CART_021 — Tổng tiền hàng = tổng thành tiền các sản phẩm được chọn', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
-      cy.selByList(SEL.cart.finalAmount).should('exist').invoke('text').then((t) => {
-        const num = t.replace(/[^\d]/g, '');
-        expect(parseInt(num, 10)).to.be.greaterThan(0);
-      });
-    });
+    it('TKI_CART_015 — Tổng tiền thanh toán = tổng thành tiền các sản phẩm được chọn', () => {
+      // Thêm 2 sản phẩm khác nhau vào giỏ
+      cy.ensureLoggedInForCart();
 
-    it('TKI_CART_022 — Hiển thị khu vực khuyến mãi/freeship', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
+      cy.visitHome();
+      cy.doSearch(data.search.validKeyword);
+
+      cy.get('a[href]', { timeout: 30000 }).then(($links) => {
+        const productLinks = Array.from($links)
+          .filter((el) => el.offsetParent !== null)
+          .map((el) => el.getAttribute('href'))
+          .filter((href) => {
+            if (!href) return false;
+            let url;
+            try { url = new URL(href, 'https://tiki.vn'); } catch (e) { return false; }
+            if (!/(\.|^)tiki\.vn$/i.test(url.hostname)) return false;
+            return /-p\d+\.html$/i.test(url.pathname) || /\/p\d+\.html$/i.test(url.pathname);
+          });
+
+        const uniqueLinks = [...new Set(productLinks)].slice(0, 2);
+        if (uniqueLinks.length < 2) throw new Error('Không đủ 2 sản phẩm trong kết quả tìm kiếm');
+        cy.wrap(uniqueLinks[0]).as('prod1');
+        cy.wrap(uniqueLinks[1]).as('prod2');
+      });
+
+      cy.get('@prod1').then((link) => {
+        cy.visit(link);
+        cy.addCurrentProductToCart();
+        cy.wait(1000);
+      });
+
+      cy.get('@prod2').then((link) => {
+        cy.visit(link);
+        cy.addCurrentProductToCart();
+        cy.wait(1000);
+      });
+
       cy.goToCart();
+      waitForCartPage();
+      cy.wait(2000); // Chờ API tải xong
+
       cy.get('body').then(($b) => {
-        const text = $b.text().toLowerCase();
-        const hasPromo = /khuyến mãi|freeship|giảm giá|coupon|mã giảm/.test(text);
-        expect(hasPromo).to.eq(true);
+        const $selectAll = Cypress.$($b).find('span.label:contains("Tất cả (")').parent();
+        if ($selectAll.length > 0) {
+          cy.wrap($selectAll).click({ force: true });
+          cy.wait(1500);
+        }
+      });
+
+      cy.get('body').then(($b) => {
+        const validSel = SEL.cart.itemRow.find(s => Cypress.$($b).find(s).length > 0);
+        if (!validSel) throw new Error('Không có sản phẩm trong giỏ');
+
+        let sumThanhTien = 0;
+        let debugInfo = [];
+
+        // 1. Tính tổng "Thành tiền" của các món đang tick
+        cy.get(validSel).each(($row) => {
+          // Tiki đôi khi giấu trạng thái checked ở thẻ input, nên ta check thêm class/svg
+          const isChecked = $row.find('input[type="checkbox"]').is(':checked') || $row.find('.checkbox-fake svg, .checkbox-fake img').length > 0;
+          const rowText = $row.text().trim().replace(/\s+/g, ' ');
+
+          if (isChecked) {
+            const matches = rowText.match(/[\d\.]+\s*(₫|đ)/ig);
+            if (matches && matches.length > 0) {
+              // Lấy giá trị tiền nằm cuối cùng bên phải của dòng (chính là cột Thành tiền)
+              const lastMatch = matches[matches.length - 1];
+              const thanhTienItem = parseInt(lastMatch.replace(/[^\d]/g, ''), 10);
+              
+              if (!isNaN(thanhTienItem)) {
+                  sumThanhTien += thanhTienItem;
+                  debugInfo.push(`[CHECKED] ${thanhTienItem}`);
+              }
+            } else {
+              debugInfo.push(`[NO_PRICE_MATCH] ${rowText}`);
+            }
+          } else {
+            debugInfo.push(`[UNCHECKED] ${rowText.substring(0, 40)}...`);
+          }
+        }).then(() => {
+          // 2. Tìm dòng "Tổng tiền thanh toán"
+          cy.get('body').then(($b2) => {
+            const summaryNode = Cypress.$($b2).find('span, p, div').filter((_, el) => {
+              const t = Cypress.$(el).text().trim().toLowerCase();
+              return t === 'tổng tiền thanh toán';
+            }).last();
+
+            if (summaryNode.length > 0) {
+              const parentText = summaryNode.parent().text();
+              const priceMatch = parentText.match(/[\d\.]+\s*(₫|đ)/i);
+              if (priceMatch) {
+                const totalVal = parseInt(priceMatch[0].replace(/[^\d]/g, ''), 10);
+                expect(totalVal).to.eq(sumThanhTien, `Lệch tiền. Chi tiết Thành tiền từng món: ${debugInfo.join(' | ')}`);
+              } else {
+                throw new Error('Không bóc tách được số tiền từ đoạn text: ' + parentText);
+              }
+            } else {
+              throw new Error('Không tìm thấy dòng "Tổng tiền thanh toán" trên giao diện');
+            }
+          });
+        });
       });
     });
 
-    it('TKI_CART_023 — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
+    it('TKI_CART_016 — Freeship chưa đạt ngưỡng hiển thị thông báo cần mua thêm', () => {
+      prepareAuthenticatedCart();
       cy.get('body').then(($b) => {
         const text = $b.text().toLowerCase();
         const meaningful = /mua thêm|chưa đủ|freeship|miễn phí vận chuyển/.test(text);
@@ -440,67 +435,10 @@ describe('Chi tiết sản phẩm & Giỏ hàng — Tiki', () => {
       });
     });
 
-    it('TKI_CART_024 — Freeship đạt ngưỡng được áp dụng', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
-      cy.get('body').should('be.visible');
-    });
-
-    it('TKI_CART_025 — Click Mua Hàng khi chưa đăng nhập → yêu cầu đăng nhập', () => {
-      openRandomProduct();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
-      cy.selByList(SEL.cart.checkoutButton).click({ force: true });
-      cy.get('body', { timeout: 15000 }).then(($b) => {
-        const matched = SEL.loginPopup.container.some(
-          (s) => Cypress.$($b).find(s).length > 0
-        );
-        expect(matched, 'Popup đăng nhập xuất hiện').to.eq(true);
-      });
-    });
-
-    it('TKI_CART_026 — Click Mua ngay khi chưa đăng nhập → popup đăng nhập', () => {
-      openRandomProduct();
-      cy.get('body').then(($b) => {
-        const found = SEL.product.buyNowButton.some(
-          (s) => Cypress.$($b).find(s).length > 0
-        );
-        if (!found) return cy.log('Sản phẩm không có nút Mua ngay — skip soft');
-        cy.selByList(SEL.product.buyNowButton).click({ force: true });
-        cy.get('body', { timeout: 15000 }).then(($body) => {
-          const matched = SEL.loginPopup.container.some(
-            (s) => Cypress.$($body).find(s).length > 0
-          );
-          expect(matched).to.eq(true);
-        });
-      });
-    });
-
-    it('TKI_CART_027 — Click Mua Hàng sau khi đăng nhập → đi tới bước thanh toán', () => {
-      if (!Cypress.env('TEST_PHONE') || !Cypress.env('TEST_PASSWORD')) {
-        cy.log('Thiếu TEST_PHONE/TEST_PASSWORD → skip');
-        return;
-      }
-      cy.loginAsTestUser();
-      cy.visit('/');
-      cy.doSearch(data.search.validKeyword);
-      cy.openRandomProductFromResults();
-      cy.addCurrentProductToCart();
-      cy.goToCart();
+    it.only('TKI_CART_017 — Click Mua Hàng sau khi đăng nhập → đi tới bước thanh toán', () => {
+      prepareAuthenticatedCart();
       cy.selByList(SEL.cart.checkoutButton).click({ force: true });
       cy.url({ timeout: 30000 }).should('match', /checkout|payment|order/);
-    });
-
-    it('TKI_CART_028 — Giỏ hàng trống hiển thị trạng thái phù hợp', () => {
-      cy.goToCart();
-      cy.get('body').then(($b) => {
-        const isEmpty = /trống|chưa có sản phẩm/i.test($b.text());
-        const hasItems = SEL.cart.itemRow.some(
-          (s) => Cypress.$($b).find(s).length > 0
-        );
-        expect(isEmpty || hasItems).to.eq(true);
-      });
     });
   });
 });

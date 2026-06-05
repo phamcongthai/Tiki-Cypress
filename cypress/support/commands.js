@@ -284,11 +284,13 @@ Cypress.Commands.add('goToCart', () => {
   cy.visit('/checkout/cart');
   cy.url({ timeout: 30000 }).should('include', '/checkout/cart');
   cy.get('body', { timeout: 15000 }).then(($b) => {
-    const hasLoginPopup = SELECTORS.loginPopup.container.some(
+    // Chỉ xác nhận popup đăng nhập khi tìm thấy Container hoặc có chữ Đăng nhập trong ReactModalPortal
+    const hasContainer = SELECTORS.loginPopup.container.some(
       (s) => Cypress.$($b).find(s).length > 0
-    ) || SELECTORS.loginPopup.phoneInput.some(
-      (s) => Cypress.$($b).find(s).filter(':visible').length > 0
     );
+    const isPortalLogin = Cypress.$($b).find('div.ReactModalPortal').text().toLowerCase().includes('đăng nhập');
+    const hasLoginPopup = hasContainer || isPortalLogin;
+    
     if (!hasLoginPopup) return;
 
     const phone = Cypress.env('TEST_PHONE');
@@ -503,11 +505,8 @@ Cypress.Commands.add('completeLoginPopup', () => {
     const hasContainer = SELECTORS.loginPopup.container.some(
       (s) => Cypress.$($b).find(s).length > 0
     );
-    const hasPhoneInput = SELECTORS.loginPopup.phoneInput.some(
-      (s) => Cypress.$($b).find(s).filter(':visible').length > 0
-    );
-    const hasGreeting = /xin chào/i.test($b.text());
-    expect(hasContainer || hasPhoneInput || hasGreeting).to.eq(true);
+    const isPortalLogin = Cypress.$($b).find('div.ReactModalPortal').text().toLowerCase().includes('đăng nhập');
+    expect(hasContainer || isPortalLogin).to.eq(true);
   });
   cy.dismissAds();
 
@@ -515,11 +514,10 @@ Cypress.Commands.add('completeLoginPopup', () => {
     const hasPasswordInput = Cypress.$($b).find('div.ReactModalPortal form input:visible').length > 0 &&
       Cypress.$($b).find('div.ReactModalPortal form input:visible').last().attr('type') === 'password';
     if (hasPasswordInput) return;
-    const hasPhoneInput = SELECTORS.loginPopup.phoneInput.some(
-      (s) => Cypress.$($b).find(s).filter(':visible').length > 0
-    );
+    const hasPhoneInput = Cypress.$($b).find('div.ReactModalPortal input[type="tel"]:visible, div.ReactModalPortal input[name="tel"]:visible, div.ReactModalPortal input[placeholder*="số điện thoại" i]:visible').length > 0;
     if (hasPhoneInput) {
-      cy.selByList(SELECTORS.loginPopup.phoneInput)
+      const phoneInputs = ['div.ReactModalPortal input[type="tel"]', 'div.ReactModalPortal input[name="tel"]', 'div.ReactModalPortal input[placeholder*="số điện thoại" i]'];
+      cy.selByList(phoneInputs)
         .clear({ force: true })
         .type(String(phone), { force: true, delay: 20 });
       cy.get('body').then(($body2) => {
@@ -597,6 +595,61 @@ Cypress.Commands.add('captureText', (selectorList, alias) => {
   cy.selByList(selectorList).first().invoke('text').then((t) => {
     cy.wrap(t.trim()).as(alias);
   });
+});
+
+const hasAuthenticatedHeader = ($body) => {
+  const $root = Cypress.$($body);
+  return SELECTORS.loggedInHeader.logoutAction.some((selector) => $root.find(selector).length > 0);
+};
+
+Cypress.Commands.add('manualLoginIfNeeded', () => {
+  cy.visit('/');
+  cy.dismissAds({ lightweight: true });
+  cy.get('body', { timeout: 30000 }).then(($body) => {
+    if (hasAuthenticatedHeader($body)) return;
+
+    cy.log('Đăng nhập thủ công nếu cần, xử lý captcha nếu có, rồi bấm Resume để tiếp tục.');
+    cy.pause();
+  });
+
+  cy.get('body', { timeout: 30000 }).then(($body) => {
+    if (hasAuthenticatedHeader($body)) return;
+
+    const $account = Cypress.$($body)
+      .find(SELECTORS.header.accountLink[0])
+      .filter(':visible')
+      .first();
+    if ($account.length) cy.wrap($account).trigger('mouseover', { force: true });
+  });
+
+  cy.get('body', { timeout: 30000 }).should(($body) => {
+    expect(hasAuthenticatedHeader($body), 'authenticated account menu').to.eq(true);
+  });
+});
+
+Cypress.Commands.add('ensureLoggedInForCart', () => {
+  cy.session(
+    'tiki-manual-login-cart',
+    () => cy.manualLoginIfNeeded(),
+    {
+      cacheAcrossSpecs: true,
+      validate: () => {
+        cy.visit('/');
+        cy.get('body', { timeout: 30000 }).then(($body) => {
+          if (hasAuthenticatedHeader($body)) return;
+
+          const $account = Cypress.$($body)
+            .find(SELECTORS.header.accountLink[0])
+            .filter(':visible')
+            .first();
+          if ($account.length) cy.wrap($account).trigger('mouseover', { force: true });
+        });
+        cy.get('body', { timeout: 30000 }).should(($body) => {
+          expect(hasAuthenticatedHeader($body), 'authenticated account menu').to.eq(true);
+        });
+      },
+    }
+  );
 });
 
 module.exports = {};
