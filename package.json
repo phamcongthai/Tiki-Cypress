@@ -9,6 +9,7 @@
     "test:search": "cypress run --spec cypress/e2e/search.cy.js",
     "test:cart": "cypress run --spec cypress/e2e/cart.cy.js",
     "test:login": "cypress run --spec cypress/e2e/login.cy.js"
+    
   },
   "devDependencies": {
     "cypress": "^14.0.0"
