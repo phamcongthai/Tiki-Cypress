@@ -8,7 +8,10 @@
     "cypress:run": "cypress run",
     "test:search": "cypress run --spec cypress/e2e/search.cy.js",
     "test:cart": "cypress run --spec cypress/e2e/cart.cy.js",
-    "test:login": "cypress run --spec cypress/e2e/login.cy.js"
+    "test:login": "cypress run --spec cypress/e2e/login.cy.js",
+    "test:isolate": "node scripts/isolate-tests.js",
+    "test:isolate:list": "node scripts/isolate-tests.js list",
+    "test:isolate:clear": "node scripts/isolate-tests.js clear"
   },
   "devDependencies": {
     "cypress": "^14.0.0"
